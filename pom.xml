@@ -43,6 +43,8 @@
     <!--suppress UnresolvedMavenProperty -->
     <docker.registry>${env.DOCKER_REGISTRY}</docker.registry>
     <docker.image.prefix>nbtest</docker.image.prefix>
+    <!--suppress UnresolvedMavenProperty -->
+    <nb-proxy>${env.PROXY_NB}</nb-proxy>
 
 
   </properties>
@@ -229,6 +231,26 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <image>
+            <name>${docker.registry}/${docker.image.prefix}/${project.artifactId}:${project.version}</name>
+            <env>
+              <HTTP_PROXY>${nb-proxy}</HTTP_PROXY>
+              <HTTPS_PROXY>${nb-proxy}</HTTPS_PROXY>
+              <BP_JVM_TYPE>JDK</BP_JVM_TYPE>
+              <BPE_PREPEND_TZ>Europe/Oslo</BPE_PREPEND_TZ>
+              <BPE_PREPEND_JAVA_TOOL_OPTIONS> -Dfile.encoding=UTF8 -Duser.timezone=Europe/Oslo -XX:MaxRAMPercentage=80 -XX:MaxDirectMemorySize=500M </BPE_PREPEND_JAVA_TOOL_OPTIONS>
+              <BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"> </BPE_DELIM_JAVA_TOOL_OPTIONS>
+            </env>
+          </image>
+          <docker>
+            <publishRegistry>
+              <username>${docker.harbor.user}</username>
+              <password>${docker.harbor.pass}</password>
+            </publishRegistry>
+          </docker>
+
+        </configuration>
         <executions>
           <execution>
             <!-- Spring Boot Actuator displays build-related information
