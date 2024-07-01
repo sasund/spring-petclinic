@@ -13,6 +13,9 @@ jobs:
   gitleaks:
     uses: sasund/workflows/.github/workflows/gitleaks.yml@main
 
+  codeql:
+    uses: sasund/workflows/.github/workflows/codeql.yml@main
+
   build:
     runs-on: ubuntu-latest
     strategy:
