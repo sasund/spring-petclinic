@@ -11,9 +11,7 @@ on:
 
 jobs:
   gitleaks:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: sasund/workflows/.github/workflows/gitleaks.yml@main
+    uses: sasund/workflows/.github/workflows/gitleaks.yml@main
 
   build:
     runs-on: ubuntu-latest
