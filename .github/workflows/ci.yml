@@ -15,5 +15,5 @@ jobs:
   codeql:
     uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/codeql.yaml@main
   build:
-    uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/build-mvn-spring-app.yaml
+    uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/build-mvn-spring-app.yaml@main
 
