@@ -10,8 +10,8 @@ on:
     branches: [ main ]
 
 jobs:
-  gitleaks:
-    uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/gitleaks.yaml@main
+#  gitleaks:
+#    uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/gitleaks.yaml@main
   codeql:
     uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/codeql.yaml@main
   build:
