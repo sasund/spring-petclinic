@@ -17,3 +17,4 @@ jobs:
   build:
     uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/build-mvn-spring-app.yaml@main
 
+
