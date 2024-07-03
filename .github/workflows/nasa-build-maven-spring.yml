@@ -14,7 +14,7 @@ jobs:
   maven-cd:
     uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/build-mvn-spring-app.yaml@main
     secrets:
-      ARTIFACTORY_NB: ${{ secret.ARTIFACTORY_NB }}
+      #ARTIFACTORY_NB: ${{ secret.ARTIFACTORY_NB }}
       ARTIFACTORY_USER_NASA: ${{ secrets.ARTIFACTORY_USER_NASA }}
       ARTIFACTORY_PASS_NASA: ${{ secrets.ARTIFACTORY_PASS_NASA }}
       PROXY_NB: ${{ secrets.PROXY_NB }}
