@@ -14,7 +14,7 @@
   </parent>
   <name>petclinic</name>
 
-  
+
   <properties>
 
     <!-- Generic properties -->
@@ -46,7 +46,9 @@
     <docker.image.prefix>nbtest</docker.image.prefix>
     <!--suppress UnresolvedMavenProperty -->
     <nb-proxy>${env.PROXY_NB}</nb-proxy>
+    <!--suppress UnresolvedMavenProperty -->
     <nvd-repo>${env.NVD_REPO}</nvd-repo>
+
 
 
   </properties>
