@@ -35,4 +35,4 @@ jobs:
       DOCKER_HARBOR_PASS_NASA: ${{ secrets.DOCKER_HARBOR_PASS_NASA }}
       NVD_REPO: ${{ secrets.NVD_REPO }}
     with:
-      maven-image: ${{ env.MAVEN_IMAGE }}
+      maven-image: harbor.nb.no/nationallibraryofnorway/docker-maven-non-root:3.8.8-jdk-21-slim-helm3
