@@ -34,3 +34,5 @@ jobs:
       DOCKER_HARBOR_USER_NASA: ${{ secrets.DOCKER_HARBOR_USER_NASA }}
       DOCKER_HARBOR_PASS_NASA: ${{ secrets.DOCKER_HARBOR_PASS_NASA }}
       NVD_REPO: ${{ secrets.NVD_REPO }}
+    with:
+      maven-image: ${{ env.MAVEN_IMAGE }}
