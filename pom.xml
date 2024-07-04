@@ -244,6 +244,7 @@
               <HTTP_PROXY>${nb-proxy}</HTTP_PROXY>
               <HTTPS_PROXY>${nb-proxy}</HTTPS_PROXY>
               <BP_JVM_TYPE>JDK</BP_JVM_TYPE>
+              <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
               <BPE_PREPEND_TZ>Europe/Oslo</BPE_PREPEND_TZ>
               <BPE_PREPEND_JAVA_TOOL_OPTIONS> -Dfile.encoding=UTF8 -Duser.timezone=Europe/Oslo -XX:MaxRAMPercentage=80 -XX:MaxDirectMemorySize=500M </BPE_PREPEND_JAVA_TOOL_OPTIONS>
               <BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"> </BPE_DELIM_JAVA_TOOL_OPTIONS>
