@@ -241,8 +241,8 @@
             <name>${docker.registry}/${docker.image.prefix}/${project.artifactId}:${project.version}</name>
             <publish>true</publish>
             <env>
-              <HTTP_PROXY>${nb-proxy}</HTTP_PROXY>
-              <HTTPS_PROXY>${nb-proxy}</HTTPS_PROXY>
+<!--              <HTTP_PROXY>${nb-proxy}</HTTP_PROXY>
+              <HTTPS_PROXY>${nb-proxy}</HTTPS_PROXY>-->
               <BP_JVM_TYPE>JDK</BP_JVM_TYPE>
               <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
               <BPE_PREPEND_TZ>Europe/Oslo</BPE_PREPEND_TZ>
