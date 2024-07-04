@@ -15,12 +15,6 @@ permissions:
   actions: read
   checks: write
 
-env:
-  MAVEN_IMAGE: harbor.nb.no/nationallibraryofnorway/docker-maven-non-root:3.8.8-jdk-21-slim-helm3
-  DEV_REPLICAS: 1
-  PROD_REPLICAS: 1
-  SERVICE_NAME: "spring-petclinic"
-  DEPLOY_E2E: "false"
 
 jobs:
   nasa-ci:
@@ -36,3 +30,8 @@ jobs:
       NVD_REPO: ${{ secrets.NVD_REPO }}
     with:
       maven-image: harbor.nb.no/nationallibraryofnorway/docker-maven-non-root:3.8.8-jdk-21-slim-helm3
+      dev-replicas: 1
+      prod-replicas: 1
+      service-name: "spring-petclinic"
+      deploy-e2e: "false"
+
