@@ -33,5 +33,5 @@ jobs:
       dev-replicas: 1
       prod-replicas: 1
       service-name: "spring-petclinic"
-      deploy-e2e: "false"
+      deploy-e2e: false
 
