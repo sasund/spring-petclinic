@@ -1,0 +1,36 @@
+name: Nasa Build maven Spring CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+env:
+  MAVEN_IMAGE: harbor.nb.no/nationallibraryofnorway/docker-maven-non-root:3.8.8-jdk-21-slim-helm3
+  DEV_REPLICAS: 1
+  PROD_REPLICAS: 1
+  SERVICE_NAME: "spring-petclinic"
+  DEPLOY_E2E: "false"
+
+jobs:
+  nasa-ci:
+    uses: NationalLibraryOfNorway/nasa-workflows/.github/workflows/build-mvn-spring-app.yaml@main
+    secrets:
+      ARTIFACTORY_NB: ${{ secrets.ARTIFACTORY_NB }}
+      ARTIFACTORY_USER_NASA: ${{ secrets.ARTIFACTORY_USER_NASA }}
+      ARTIFACTORY_PASS_NASA: ${{ secrets.ARTIFACTORY_PASS_NASA }}
+      PROXY_NB: ${{ secrets.PROXY_NB }}
+      DOCKER_REGISTRY_NB: ${{ secrets.DOCKER_REGISTRY_NB }}
+      DOCKER_HARBOR_USER_NASA: ${{ secrets.DOCKER_HARBOR_USER_NASA }}
+      DOCKER_HARBOR_PASS_NASA: ${{ secrets.DOCKER_HARBOR_PASS_NASA }}
+      NVD_REPO: ${{ secrets.NVD_REPO }}
