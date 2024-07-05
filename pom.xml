@@ -51,6 +51,8 @@
     <nb-proxy>${env.PROXY_NB}</nb-proxy>
     <!--suppress UnresolvedMavenProperty -->
     <nvd-repo>${env.NVD_REPO}</nvd-repo>
+    <!--suppress UnresolvedMavenProperty -->
+    <artifactory-repo-host>${env.ARTIFACTORY_REPO_HOST}</artifactory-repo-host>
 
 
 
@@ -164,6 +166,20 @@
 
 
   </dependencies>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>NB Snapshot Repository</name>
+      <url>https://${artifactory-repo-host}/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+    <repository>
+      <id>releases</id>
+      <name>NB Release Repository</name>
+      <url>https://${artifactory-repo-host}/artifactory/libs-release-local</url>
+    </repository>
+  </distributionManagement>
+
 
   <build>
     <plugins>
