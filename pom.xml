@@ -14,10 +14,14 @@
   </parent>
   <name>petclinic</name>
 
+
+
+
+
   <properties>
 
     <!-- Generic properties -->
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Important for reproducible builds. Update using e.g. ./mvnw versions:set -DnewVersion=... -->
@@ -37,14 +41,23 @@
 
 
     <!--suppress UnresolvedMavenProperty -->
-    <docker.harbor.user>${env.DOCKER_HARBOR_USER}</docker.harbor.user>
+    <docker.harbor.user>${env.DOCKER_HARBOR_USER_NASA}</docker.harbor.user>
     <!--suppress UnresolvedMavenProperty -->
-    <docker.harbor.pass>${env.DOCKER_HARBOR_PASS}</docker.harbor.pass>
+    <docker.harbor.pass>${env.DOCKER_HARBOR_PASS_NASA}</docker.harbor.pass>
     <!--suppress UnresolvedMavenProperty -->
     <docker.registry>${env.DOCKER_REGISTRY_NB}</docker.registry>
     <docker.image.prefix>nbtest</docker.image.prefix>
     <!--suppress UnresolvedMavenProperty -->
     <nb-proxy>${env.PROXY_NB}</nb-proxy>
+    <!--suppress UnresolvedMavenProperty -->
+    <nvd-repo>${env.NVD_REPO}</nvd-repo>
+    <!--suppress UnresolvedMavenProperty -->
+    <artifactory-repo-host>${env.ARTIFACTORY_REPO_HOST}</artifactory-repo-host>
+
+
+
+
+
 
 
   </properties>
@@ -152,11 +165,20 @@
     </dependency>
 
 
-
-
-
   </dependencies>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>NB Snapshot Repository</name>
+      <url>https://${artifactory-repo-host}/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+    <repository>
+      <id>releases</id>
+      <name>NB Release Repository</name>
+      <url>https://${artifactory-repo-host}/artifactory/libs-release-local</url>
+    </repository>
+  </distributionManagement>
 
 
   <build>
@@ -245,6 +267,7 @@
               <HTTP_PROXY>${nb-proxy}</HTTP_PROXY>
               <HTTPS_PROXY>${nb-proxy}</HTTPS_PROXY>
               <BP_JVM_TYPE>JDK</BP_JVM_TYPE>
+              <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
               <BPE_PREPEND_TZ>Europe/Oslo</BPE_PREPEND_TZ>
               <BPE_PREPEND_JAVA_TOOL_OPTIONS> -Dfile.encoding=UTF8 -Duser.timezone=Europe/Oslo -XX:MaxRAMPercentage=80 -XX:MaxDirectMemorySize=500M </BPE_PREPEND_JAVA_TOOL_OPTIONS>
               <BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"> </BPE_DELIM_JAVA_TOOL_OPTIONS>
@@ -311,6 +334,24 @@
       <plugin>
         <groupId>org.cyclonedx</groupId>
         <artifactId>cyclonedx-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>9.2.0</version>
+        <configuration>
+          <nvdDatafeedUrl>https://${nvd-repo}/nvdcve-{0}.json.gz</nvdDatafeedUrl>
+          <suppressionFile>https://raw.githubusercontent.com/NationalLibraryOfNorway/cve-suppressions/main/suppressions.xml</suppressionFile>
+          <failBuildOnCVSS>8</failBuildOnCVSS>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>
@@ -476,6 +517,27 @@
                 </lifecycleMappingMetadata>
               </configuration>
             </plugin>
+            <plugin>
+              <groupId>com.diffplug.spotless</groupId>
+              <artifactId>spotless-maven-plugin</artifactId>
+              <version>${spotless.version}</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>check</goal>
+                  </goals>
+                  <phase>compile</phase>
+                </execution>
+              </executions>
+              <configuration>
+                <java>
+                  <googleJavaFormat>
+                    <!-- <version>21</version>-->
+                  </googleJavaFormat>
+                </java>
+              </configuration>
+            </plugin>
+
           </plugins>
         </pluginManagement>
       </build>
