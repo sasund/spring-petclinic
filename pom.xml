@@ -320,6 +320,24 @@
         <artifactId>cyclonedx-maven-plugin</artifactId>
       </plugin>
 
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>9.2.0</version>
+        <configuration>
+          <nvdDatafeedUrl>https://${nvd-repo}/nvdcve-{0}.json.gz</nvdDatafeedUrl>
+          <suppressionFile>https://raw.githubusercontent.com/NationalLibraryOfNorway/cve-suppressions/main/suppressions.xml</suppressionFile>
+          <failBuildOnCVSS>8</failBuildOnCVSS>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -483,6 +501,27 @@
                 </lifecycleMappingMetadata>
               </configuration>
             </plugin>
+            <plugin>
+              <groupId>com.diffplug.spotless</groupId>
+              <artifactId>spotless-maven-plugin</artifactId>
+              <version>${spotless.version}</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>check</goal>
+                  </goals>
+                  <phase>compile</phase>
+                </execution>
+              </executions>
+              <configuration>
+                <java>
+                  <googleJavaFormat>
+                    <!-- <version>21</version>-->
+                  </googleJavaFormat>
+                </java>
+              </configuration>
+            </plugin>
+
           </plugins>
         </pluginManagement>
       </build>
